@@ -1,4 +1,4 @@
-# arcade-bedwars
+# MODO BEDWARS EM MINIGAME-ARCADE
 Uma base incompleta (faltando apenas sistema de geradores e upgrades) tendo em comum a compatibilidade com o Yolo.
 
 Consiste em um bedwars utilizando extração de mapas via .zip (WinRAR Java API) e localização de informações principais para carregamento dos mapas em .json (map.json) como configuração principal.
