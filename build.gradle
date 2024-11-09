@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+    id 'net.minecrell.plugin-yml.bukkit' version '0.3.0'
+}
+
+group 'com.minecraft.bedwars'
+version '1.0.0-SNAPSHOT'
+
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()
+    maven { url "https://hub.spigotmc.org/nexus/content/groups/public/" }
+}
+
+dependencies {
+    compile project(':core-bukkit')
+
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    compileOnly group: 'redis.clients', name: 'jedis', version: '3.1.0'
+
+    compileOnly files("../libraries/ImanitySpigot.jar")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+bukkit {
+    name = 'Arcade-Bedwars'
+    main = 'com.minecraft.bedwars.Bedwars'
+    version = '1.0.0-' + gitVersion()
+    website = 'www.trydent.com.br'
+    description = 'Arcade-bedwars bukkit plugin based on core and core-bukkit.'
+}
+
+static String gitVersion() {
+    return 'git rev-parse --verify --short HEAD'.execute().getText().trim()
+}
+
+shadowJar {
+    dependencies {
+        include(project(':core-bukkit'))
+    }
+    archiveClassifier = null
+}
